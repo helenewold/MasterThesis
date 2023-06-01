@@ -1,0 +1,49 @@
+set(groot, 'defaultaxeslinewidth', 1.25,...
+    'defaultlinelinewidth', 1.25, ...
+    'defaultstemlinewidth', 1.25, ...
+    'defaultstemmarkersize', 2.5, ...,
+    'defaultstemmarkerfacecolor', 'auto', ...
+    'defaultaxesygrid', 'off', ...
+    'defaultaxesyminorgrid', 'off', ...
+    'defaultaxesfontsize', 16, ...
+    'defaultaxesyminortick', 'on', ...
+    'defaultaxestickdir', 'out', ...
+    'defaultAxesTickDirMode', 'manual', ...
+    'defaultaxesticklength', 6*[0.001 0.001], ...
+    'defaulttextinterpreter','latex', ...
+    'defaultAxesTickLabelInterpreter','latex', ...
+    'defaultLegendInterpreter','latex', ... 
+    'defaultfigurecolor', 'white' ...
+    );
+
+f = 10;             % Hz
+fs = 100*f;           % Hz
+dt = 1/fs;          % s
+t = 0:1/fs:0.5;       % s
+s = cos(2*pi*f*t);
+
+fs2 = 1.2*f;
+
+t_reconstructed = 0:1/fs2:0.5
+reconstructed = cos(2*pi*2*t)
+
+t_samples = 0:1/fs2:0.5;
+samples = cos(2*pi*f*t_samples);
+
+
+f1 = figure(1);
+f1.Position = [100 100 1000 400];
+plot(t, reconstructed, '-r', 'DisplayName','Reconstructed signal')
+hold on
+plot(t_samples, samples, 'o', 'DisplayName','Samples')
+hold on
+plot(t, s, 'b', 'DisplayName', 'Continuous signal')
+hold off
+title("Sampling of continuous time signal example")
+xlabel("time [s]")
+ylabel("Amplitude")
+xlim([0 t(end)])
+ylim([-1.1 1.1])
+legend('Location', 'southeast')
+
+exportgraphics(f1, "..\Figures\Overleaf\theory\sampleex.pdf")
